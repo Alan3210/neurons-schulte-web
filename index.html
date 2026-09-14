@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <meta name="viewport"
+          content="width=device-width,
+                   height=device-height,
+                   initial-scale=1.0,
+                   user-scalable=no">
+
+    <title>neurons_Shulte</title>
+
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #1e1e2a;
+        }
+
+        #unity-container {
+            position: fixed;
+            inset: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 100%;
+            height: 100%;
+        }
+
+        #unity-canvas {
+            display: block;
+
+            /*
+             * Всегда вписываем вертикальную игру 9:16
+             * целиком в окно браузера.
+             */
+            width: min(100vw, calc(100vh * 9 / 16));
+            height: min(100vh, calc(100vw * 16 / 9));
+
+            background: #000000;
+
+            outline: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="unity-container">
+    <canvas
+        id="unity-canvas"
+        width="1080"
+        height="1920"
+        tabindex="-1">
+    </canvas>
+</div>
+
+<script>
+    const canvas = document.querySelector("#unity-canvas");
+
+    const buildUrl = "Build";
+    const loaderUrl = buildUrl + "/build05.loader.js";
+
+    const config = {
+        dataUrl:
+            buildUrl + "/build05.data.unityweb",
+
+        frameworkUrl:
+            buildUrl + "/build05.framework.js.unityweb",
+
+        codeUrl:
+            buildUrl + "/build05.wasm.unityweb",
+
+        streamingAssetsUrl:
+            "StreamingAssets",
+
+        companyName:
+            "DefaultCompany",
+
+        productName:
+            "neurons_Shulte",
+
+        productVersion:
+            "1.0"
+    };
+
+    const script = document.createElement("script");
+
+    script.src = loaderUrl;
+
+    script.onload = () => {
+        createUnityInstance(
+            canvas,
+            config
+        ).catch((message) => {
+            console.error(message);
+        });
+    };
+
+    document.body.appendChild(script);
+</script>
+
+</body>
+</html>
